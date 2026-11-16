@@ -1858,13 +1858,16 @@ app.get(["/api/auth/check", "/auth/check"], (req, res) => {
   }
   return res.status(401).json({ ok: false, authenticated: false });
 });
+function getGoogleRedirectUri(req) {
+  const host = req.get("host") || "";
+  if (host.includes("localhost") || host.includes("127.0.0.1") || !process.env.VERCEL && !host.includes("vercel.app")) {
+    return "http://localhost:5173/api/auth/google/callback";
+  }
+  return "https://vasco-fit.vercel.app/api/auth/google/callback";
+}
 app.get(["/api/auth/google", "/auth/google"], (req, res) => {
   const clientId = process.env.GOOGLE_HEALTH_CLIENT_ID || "";
-  const host = req.get("host") || "";
-  let redirectUri = "https://vasco-fit.vercel.app/api/auth/google/callback";
-  if (host.includes("localhost") || host.includes("127.0.0.1")) {
-    redirectUri = `http://${host}/api/auth/google/callback`;
-  }
+  const redirectUri = getGoogleRedirectUri(req);
   const scopes = [
     "openid",
     "email",
@@ -1906,11 +1909,7 @@ app.get(["/api/auth/google/callback", "/auth/google/callback"], async (req, res)
   }
   const clientId = process.env.GOOGLE_HEALTH_CLIENT_ID || "";
   const clientSecret = process.env.GOOGLE_HEALTH_CLIENT_SECRET || "";
-  const host = req.get("host") || "";
-  let redirectUri = "https://vasco-fit.vercel.app/api/auth/google/callback";
-  if (host.includes("localhost") || host.includes("127.0.0.1")) {
-    redirectUri = `http://${host}/api/auth/google/callback`;
-  }
+  const redirectUri = getGoogleRedirectUri(req);
   try {
     const tokenRes = await fetch("https://oauth2.googleapis.com/token", {
       method: "POST",
