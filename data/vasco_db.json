@@ -277,7 +277,7 @@
       "name": "REM Sleep",
       "category": "recovery",
       "is_active_focus": true,
-      "personal_best": 110,
+      "personal_best": 119,
       "metrics": [
         {
           "name": "Minutes",
@@ -1685,57 +1685,57 @@
     {
       "id": "log-health-dur-1794826654875",
       "exercise_id": "total_sleep_duration",
-      "timestamp": "2026-11-16T10:57:33.709Z",
+      "timestamp": "2026-11-16T06:39:00.000Z",
       "metric_values": {
-        "Duration": 7.6
+        "Duration": 7.5
       },
       "modifier_value": "Optimal",
       "session_tags": [],
-      "raw_transcript": "Google Health: Total Sleep 7.6 hrs (Optimal)"
+      "raw_transcript": "Google Health: Total Sleep 7.5 hrs (Optimal)"
     },
     {
       "id": "log-health-deep-1794826654878",
       "exercise_id": "deep_sleep",
-      "timestamp": "2026-11-16T10:57:33.709Z",
+      "timestamp": "2026-11-16T06:39:00.000Z",
       "metric_values": {
-        "Minutes": 80
+        "Minutes": 61
       },
-      "modifier_value": "Optimal",
+      "modifier_value": "Average",
       "session_tags": [],
-      "raw_transcript": "Google Health: Deep Sleep 80 mins (Optimal)"
+      "raw_transcript": "Google Health: Deep Sleep 61 mins (Average)"
     },
     {
       "id": "log-health-rem-1794826654879",
       "exercise_id": "rem_sleep",
-      "timestamp": "2026-11-16T10:57:33.709Z",
+      "timestamp": "2026-11-16T06:39:00.000Z",
       "metric_values": {
-        "Minutes": 105
+        "Minutes": 119
       },
       "modifier_value": "High",
       "session_tags": [],
-      "raw_transcript": "Google Health: REM Sleep 105 mins (High)"
+      "raw_transcript": "Google Health: REM Sleep 119 mins (High)"
     },
     {
       "id": "log-health-rhr-1794826654880",
       "exercise_id": "resting_heart_rate",
-      "timestamp": "2026-11-16T10:57:33.709Z",
+      "timestamp": "2026-11-16T06:39:00.000Z",
       "metric_values": {
-        "BPM": 52
+        "BPM": 68
       },
-      "modifier_value": "Resting",
+      "modifier_value": "Fatigued",
       "session_tags": [],
-      "raw_transcript": "Google Health: Resting Heart Rate 52 bpm (Resting)"
+      "raw_transcript": "Google Health: Resting Heart Rate 68 bpm (Fatigued)"
     },
     {
       "id": "log-health-hrv-1794826654881",
       "exercise_id": "hrv",
-      "timestamp": "2026-11-16T10:57:33.709Z",
+      "timestamp": "2026-11-16T06:39:00.000Z",
       "metric_values": {
-        "rMSSD": 67
+        "rMSSD": 46
       },
-      "modifier_value": "High Recovery",
+      "modifier_value": "Suppressed",
       "session_tags": [],
-      "raw_transcript": "Google Health: HRV 67 ms (High Recovery)"
+      "raw_transcript": "Google Health: HRV 46 ms (Suppressed)"
     }
   ]
 }
