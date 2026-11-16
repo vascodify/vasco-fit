@@ -1,0 +1,47 @@
+{
+  "name": "vasco-oracle",
+  "version": "1.0.0",
+  "private": true,
+  "description": "V.A.S.C.O. - Voice-Activated Strength & Correlation Oracle",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -n \"SERVER,CLIENT\" -c \"cyan,magenta\" \"tsx watch server/index.ts\" \"vite --port 5173\"",
+    "dev:server": "tsx watch server/index.ts",
+    "dev:client": "vite --port 5173",
+    "mcp": "tsx server/mcp-server.ts",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "start": "tsx server/index.ts"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.0",
+    "@modelcontextprotocol/sdk": "^1.6.1",
+    "@supabase/supabase-js": "^2.49.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "lucide-react": "^0.477.0",
+    "node-telegram-bot-api": "^0.66.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "recharts": "^2.15.1",
+    "ws": "^8.18.1",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.9",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.13.5",
+    "@types/node-telegram-bot-api": "^0.64.7",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@types/ws": "^8.5.14",
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.2",
+    "tailwindcss": "^4.0.9",
+    "tsx": "^4.19.3",
+    "typescript": "^5.7.3",
+    "vite": "^6.2.0"
+  }
+}

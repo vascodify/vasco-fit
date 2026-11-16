@@ -1,0 +1,1686 @@
+{
+  "exercises": [
+    {
+      "id": "muscle_up_transition_pulses",
+      "name": "Muscle Up Transition Pulses",
+      "category": "calisthenics",
+      "is_active_focus": true,
+      "personal_best": 5,
+      "metrics": [
+        {
+          "name": "Reps",
+          "type": "count",
+          "unit": "pulses"
+        }
+      ],
+      "modifier": {
+        "name": "Form Quality",
+        "type": "scale",
+        "options": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      }
+    },
+    {
+      "id": "fat_grip_pullups",
+      "name": "Fat Grip Pullups",
+      "category": "calisthenics",
+      "is_active_focus": true,
+      "personal_best": 15,
+      "metrics": [
+        {
+          "name": "Reps",
+          "type": "count",
+          "unit": "reps"
+        }
+      ],
+      "modifier": {
+        "name": "Form Quality",
+        "type": "scale",
+        "options": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      }
+    },
+    {
+      "id": "weighted_pullups",
+      "name": "Weighted Pullups (5RM)",
+      "category": "weighted_calisthenics",
+      "is_active_focus": true,
+      "personal_best": 25,
+      "metrics": [
+        {
+          "name": "Weight",
+          "type": "load",
+          "unit": "kg"
+        }
+      ],
+      "modifier": {
+        "name": "Form Quality",
+        "type": "scale",
+        "options": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      }
+    },
+    {
+      "id": "dips",
+      "name": "Dips",
+      "category": "calisthenics",
+      "is_active_focus": true,
+      "personal_best": 20,
+      "metrics": [
+        {
+          "name": "Reps",
+          "type": "count",
+          "unit": "reps"
+        }
+      ],
+      "modifier": {
+        "name": "Additional Weight",
+        "type": "categorical",
+        "options": [
+          "Bodyweight",
+          "+5kg",
+          "+10kg",
+          "+15kg",
+          "+20kg",
+          "+25kg"
+        ]
+      }
+    },
+    {
+      "id": "sphinx_pushups",
+      "name": "Sphinx Pushups",
+      "category": "calisthenics",
+      "is_active_focus": true,
+      "personal_best": 10,
+      "metrics": [
+        {
+          "name": "Reps",
+          "type": "count",
+          "unit": "reps"
+        }
+      ],
+      "modifier": {
+        "name": "Form Quality",
+        "type": "scale",
+        "options": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      }
+    },
+    {
+      "id": "pike_presses",
+      "name": "Pike Presses",
+      "category": "calisthenics",
+      "is_active_focus": true,
+      "personal_best": 5,
+      "metrics": [
+        {
+          "name": "Reps",
+          "type": "count",
+          "unit": "reps"
+        }
+      ],
+      "modifier": {
+        "name": "Deficit / Range of Motion",
+        "type": "categorical",
+        "options": [
+          "Floor",
+          "Parallettes",
+          "Blocks"
+        ]
+      }
+    },
+    {
+      "id": "deadlift",
+      "name": "Deadlift",
+      "category": "barbell",
+      "is_active_focus": true,
+      "personal_best": 200,
+      "notes": "Current realistic target PR: 200kg (All-time: 220kg)",
+      "metrics": [
+        {
+          "name": "Weight",
+          "type": "load",
+          "unit": "kg"
+        }
+      ],
+      "modifier": {
+        "name": "Form Quality",
+        "type": "scale",
+        "options": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      }
+    },
+    {
+      "id": "squat",
+      "name": "Squat (5RM)",
+      "category": "barbell",
+      "is_active_focus": true,
+      "personal_best": 120,
+      "notes": "Current working 5RM: 120kg (All-time: 140kg x 5)",
+      "metrics": [
+        {
+          "name": "Weight",
+          "type": "load",
+          "unit": "kg"
+        }
+      ],
+      "modifier": {
+        "name": "Form Quality",
+        "type": "scale",
+        "options": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      }
+    },
+    {
+      "id": "incline_db_press",
+      "name": "Incline DB Press (5RM)",
+      "category": "dumbbell",
+      "is_active_focus": true,
+      "personal_best": 40,
+      "metrics": [
+        {
+          "name": "Weight",
+          "type": "load",
+          "unit": "kg"
+        }
+      ],
+      "modifier": {
+        "name": "Form Quality",
+        "type": "scale",
+        "options": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      }
+    },
+    {
+      "id": "total_sleep_duration",
+      "name": "Total Sleep Duration",
+      "category": "recovery",
+      "is_active_focus": true,
+      "personal_best": 8.5,
+      "metrics": [
+        {
+          "name": "Duration",
+          "type": "duration",
+          "unit": "hours"
+        }
+      ],
+      "modifier": {
+        "name": "Sleep Quality",
+        "type": "categorical",
+        "options": [
+          "Optimal",
+          "Sufficient",
+          "Deficit"
+        ]
+      }
+    },
+    {
+      "id": "deep_sleep",
+      "name": "Deep Sleep",
+      "category": "recovery",
+      "is_active_focus": true,
+      "personal_best": 90,
+      "metrics": [
+        {
+          "name": "Minutes",
+          "type": "duration",
+          "unit": "min"
+        }
+      ],
+      "modifier": {
+        "name": "Restorative Zone",
+        "type": "categorical",
+        "options": [
+          "Optimal",
+          "Average",
+          "Low"
+        ]
+      }
+    },
+    {
+      "id": "rem_sleep",
+      "name": "REM Sleep",
+      "category": "recovery",
+      "is_active_focus": true,
+      "personal_best": 110,
+      "metrics": [
+        {
+          "name": "Minutes",
+          "type": "duration",
+          "unit": "min"
+        }
+      ],
+      "modifier": {
+        "name": "Mental Recovery",
+        "type": "categorical",
+        "options": [
+          "High",
+          "Moderate",
+          "Low"
+        ]
+      }
+    },
+    {
+      "id": "resting_heart_rate",
+      "name": "Resting Heart Rate",
+      "category": "recovery",
+      "is_active_focus": true,
+      "personal_best": 50,
+      "metrics": [
+        {
+          "name": "BPM",
+          "type": "count",
+          "unit": "bpm"
+        }
+      ],
+      "modifier": {
+        "name": "Cardio Status",
+        "type": "categorical",
+        "options": [
+          "Resting",
+          "Elevated",
+          "Fatigued"
+        ]
+      }
+    },
+    {
+      "id": "hrv",
+      "name": "Heart Rate Variability",
+      "category": "recovery",
+      "is_active_focus": true,
+      "personal_best": 75,
+      "metrics": [
+        {
+          "name": "rMSSD",
+          "type": "count",
+          "unit": "ms"
+        }
+      ],
+      "modifier": {
+        "name": "Autonomic Balance",
+        "type": "categorical",
+        "options": [
+          "High Recovery",
+          "Baseline",
+          "Suppressed"
+        ]
+      }
+    }
+  ],
+  "logs": [
+    {
+      "id": "log-seed-1",
+      "exercise_id": "muscle_up_transition_pulses",
+      "timestamp": "2026-11-01T17:30:00.000Z",
+      "metric_values": {
+        "Reps": 2
+      },
+      "modifier_value": 5,
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "2 muscle up transition pulses at 90 degrees bodyweight, felt fresh."
+    },
+    {
+      "id": "log-seed-2",
+      "exercise_id": "fat_grip_pullups",
+      "timestamp": "2026-11-01T17:30:00.000Z",
+      "metric_values": {
+        "Reps": 8
+      },
+      "modifier_value": 5,
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Did 8 fat grip pullups with clean form."
+    },
+    {
+      "id": "log-seed-3",
+      "exercise_id": "weighted_pullups",
+      "timestamp": "2026-11-01T17:30:00.000Z",
+      "metric_values": {
+        "Weight": 15
+      },
+      "modifier_value": 5,
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Weighted pullups +15kg for 5RM."
+    },
+    {
+      "id": "log-seed-incline-1",
+      "exercise_id": "incline_db_press",
+      "timestamp": "2026-11-01T17:30:00.000Z",
+      "metric_values": {
+        "Weight": 30
+      },
+      "modifier_value": 5,
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Incline DB press 30kg for 5RM."
+    },
+    {
+      "id": "log-seed-4",
+      "exercise_id": "muscle_up_transition_pulses",
+      "timestamp": "2026-11-04T17:30:00.000Z",
+      "metric_values": {
+        "Reps": 3
+      },
+      "modifier_value": 5,
+      "session_tags": [
+        "Sore"
+      ],
+      "raw_transcript": "3 muscle up transition pulses, forearms a bit sore."
+    },
+    {
+      "id": "log-seed-5",
+      "exercise_id": "fat_grip_pullups",
+      "timestamp": "2026-11-04T17:30:00.000Z",
+      "metric_values": {
+        "Reps": 10
+      },
+      "modifier_value": 5,
+      "session_tags": [
+        "Sore"
+      ],
+      "raw_transcript": "10 reps on fat grip pullups despite soreness."
+    },
+    {
+      "id": "log-seed-6",
+      "exercise_id": "pike_presses",
+      "timestamp": "2026-11-04T17:30:00.000Z",
+      "metric_values": {
+        "Reps": 3
+      },
+      "modifier_value": "Floor",
+      "session_tags": [
+        "Sore"
+      ],
+      "raw_transcript": "Pike presses 3 reps on floor."
+    },
+    {
+      "id": "log-seed-7",
+      "exercise_id": "sphinx_pushups",
+      "timestamp": "2026-11-04T17:30:00.000Z",
+      "metric_values": {
+        "Reps": 7
+      },
+      "modifier_value": 5,
+      "session_tags": [
+        "Sore"
+      ],
+      "raw_transcript": "Sphinx pushups 7 reps, triceps fatigued."
+    },
+    {
+      "id": "log-seed-8",
+      "exercise_id": "muscle_up_transition_pulses",
+      "timestamp": "2026-11-07T17:30:00.000Z",
+      "metric_values": {
+        "Reps": 3
+      },
+      "modifier_value": 5,
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "3 muscle up transition pulses, strict 90 degree hold, felt super fresh."
+    },
+    {
+      "id": "log-seed-9",
+      "exercise_id": "fat_grip_pullups",
+      "timestamp": "2026-11-07T17:30:00.000Z",
+      "metric_values": {
+        "Reps": 11
+      },
+      "modifier_value": 5,
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Hit 11 fat grip pullups with 5/5 form quality!"
+    },
+    {
+      "id": "log-seed-10",
+      "exercise_id": "dips",
+      "timestamp": "2026-11-07T17:30:00.000Z",
+      "metric_values": {
+        "Reps": 16
+      },
+      "modifier_value": "Bodyweight",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "16 bodyweight dips."
+    },
+    {
+      "id": "log-seed-11",
+      "exercise_id": "deadlift",
+      "timestamp": "2026-11-07T17:30:00.000Z",
+      "metric_values": {
+        "Weight": 175
+      },
+      "modifier_value": 5,
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Deadlift 175kg single."
+    },
+    {
+      "id": "log-seed-incline-2",
+      "exercise_id": "incline_db_press",
+      "timestamp": "2026-11-07T17:30:00.000Z",
+      "metric_values": {
+        "Weight": 35
+      },
+      "modifier_value": 5,
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Incline DB press 35kg 5RM, smooth lockouts."
+    },
+    {
+      "id": "log-seed-12",
+      "exercise_id": "muscle_up_transition_pulses",
+      "timestamp": "2026-11-10T17:30:00.000Z",
+      "metric_values": {
+        "Reps": 4
+      },
+      "modifier_value": 5,
+      "session_tags": [
+        "Sore"
+      ],
+      "raw_transcript": "4 muscle up transition pulses, felt sore."
+    },
+    {
+      "id": "log-seed-13",
+      "exercise_id": "fat_grip_pullups",
+      "timestamp": "2026-11-10T17:30:00.000Z",
+      "metric_values": {
+        "Reps": 13
+      },
+      "modifier_value": 5,
+      "session_tags": [
+        "Sore"
+      ],
+      "raw_transcript": "13 fat grip pullups."
+    },
+    {
+      "id": "log-seed-14",
+      "exercise_id": "weighted_pullups",
+      "timestamp": "2026-11-10T17:30:00.000Z",
+      "metric_values": {
+        "Weight": 22.5
+      },
+      "modifier_value": 5,
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Weighted pullups +22.5kg for 5RM."
+    },
+    {
+      "id": "log-seed-15",
+      "exercise_id": "pike_presses",
+      "timestamp": "2026-11-10T17:30:00.000Z",
+      "metric_values": {
+        "Reps": 4
+      },
+      "modifier_value": "Parallettes",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Elevated pike presses on parallettes for 4 deep reps."
+    },
+    {
+      "id": "log-seed-16",
+      "exercise_id": "squat",
+      "timestamp": "2026-11-10T17:30:00.000Z",
+      "metric_values": {
+        "Weight": 110
+      },
+      "modifier_value": 5,
+      "session_tags": [
+        "Sore"
+      ],
+      "raw_transcript": "Back squat 110kg 5RM."
+    },
+    {
+      "id": "log-seed-17",
+      "exercise_id": "muscle_up_transition_pulses",
+      "timestamp": "2026-11-13T17:30:00.000Z",
+      "metric_values": {
+        "Reps": 5
+      },
+      "modifier_value": 5,
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "5 muscle up transition pulses PR, perfectly controlled at transition."
+    },
+    {
+      "id": "log-seed-18",
+      "exercise_id": "fat_grip_pullups",
+      "timestamp": "2026-11-13T17:30:00.000Z",
+      "metric_values": {
+        "Reps": 14
+      },
+      "modifier_value": 5,
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "14 fat grip pullups, closing in on 15 PR!"
+    },
+    {
+      "id": "log-seed-19",
+      "exercise_id": "dips",
+      "timestamp": "2026-11-13T17:30:00.000Z",
+      "metric_values": {
+        "Reps": 20
+      },
+      "modifier_value": "Bodyweight",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "20 clean bodyweight dips PR matched!"
+    },
+    {
+      "id": "log-seed-20",
+      "exercise_id": "sphinx_pushups",
+      "timestamp": "2026-11-13T17:30:00.000Z",
+      "metric_values": {
+        "Reps": 10
+      },
+      "modifier_value": 5,
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "10 sphinx pushups with strict elbow lock, PR hit!"
+    },
+    {
+      "id": "log-seed-21",
+      "exercise_id": "deadlift",
+      "timestamp": "2026-11-13T17:30:00.000Z",
+      "metric_values": {
+        "Weight": 195
+      },
+      "modifier_value": 5,
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Deadlift 195kg heavy single."
+    },
+    {
+      "id": "log-seed-22",
+      "exercise_id": "squat",
+      "timestamp": "2026-11-13T17:30:00.000Z",
+      "metric_values": {
+        "Weight": 120
+      },
+      "modifier_value": 5,
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Squat 120kg for 5RM, solid depth."
+    },
+    {
+      "id": "log-seed-23",
+      "exercise_id": "weighted_pullups",
+      "timestamp": "2026-11-13T17:30:00.000Z",
+      "metric_values": {
+        "Weight": 25
+      },
+      "modifier_value": 5,
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Weighted pullups +25kg for 5RM PR!"
+    },
+    {
+      "id": "log-seed-incline-3",
+      "exercise_id": "incline_db_press",
+      "timestamp": "2026-11-13T17:30:00.000Z",
+      "metric_values": {
+        "Weight": 40
+      },
+      "modifier_value": 5,
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Incline DB press 40kg 5RM PR achieved!"
+    },
+    {
+      "id": "fitbit-air-dur-2026-11-15",
+      "exercise_id": "total_sleep_duration",
+      "timestamp": "2026-11-15T08:00:00.000Z",
+      "metric_values": {
+        "Duration": 7.9
+      },
+      "modifier_value": "Optimal",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: Total Sleep 7.9 hrs"
+    },
+    {
+      "id": "fitbit-air-deep-2026-11-15",
+      "exercise_id": "deep_sleep",
+      "timestamp": "2026-11-15T08:00:00.000Z",
+      "metric_values": {
+        "Minutes": 66
+      },
+      "modifier_value": "Average",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: Deep Sleep 66 mins"
+    },
+    {
+      "id": "fitbit-air-rem-2026-11-15",
+      "exercise_id": "rem_sleep",
+      "timestamp": "2026-11-15T08:00:00.000Z",
+      "metric_values": {
+        "Minutes": 131
+      },
+      "modifier_value": "High",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: REM Sleep 131 mins"
+    },
+    {
+      "id": "fitbit-air-rhr-2026-11-15",
+      "exercise_id": "resting_heart_rate",
+      "timestamp": "2026-11-15T08:00:00.000Z",
+      "metric_values": {
+        "BPM": 55
+      },
+      "modifier_value": "Elevated",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health: Resting Heart Rate 55 bpm"
+    },
+    {
+      "id": "fitbit-air-hrv-2026-11-15",
+      "exercise_id": "hrv",
+      "timestamp": "2026-11-15T08:00:00.000Z",
+      "metric_values": {
+        "rMSSD": 56
+      },
+      "modifier_value": "Baseline",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health: HRV 56 ms"
+    },
+    {
+      "id": "fitbit-air-dur-2026-11-14",
+      "exercise_id": "total_sleep_duration",
+      "timestamp": "2026-11-14T08:00:00.000Z",
+      "metric_values": {
+        "Duration": 5.9
+      },
+      "modifier_value": "Deficit",
+      "session_tags": [
+        "Sore"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: Total Sleep 5.9 hrs"
+    },
+    {
+      "id": "fitbit-air-deep-2026-11-14",
+      "exercise_id": "deep_sleep",
+      "timestamp": "2026-11-14T08:00:00.000Z",
+      "metric_values": {
+        "Minutes": 68
+      },
+      "modifier_value": "Average",
+      "session_tags": [
+        "Sore"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: Deep Sleep 68 mins"
+    },
+    {
+      "id": "fitbit-air-rem-2026-11-14",
+      "exercise_id": "rem_sleep",
+      "timestamp": "2026-11-14T08:00:00.000Z",
+      "metric_values": {
+        "Minutes": 106
+      },
+      "modifier_value": "High",
+      "session_tags": [
+        "Sore"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: REM Sleep 106 mins"
+    },
+    {
+      "id": "fitbit-air-rhr-2026-11-14",
+      "exercise_id": "resting_heart_rate",
+      "timestamp": "2026-11-14T08:00:00.000Z",
+      "metric_values": {
+        "BPM": 54
+      },
+      "modifier_value": "Resting",
+      "session_tags": [
+        "Sore"
+      ],
+      "raw_transcript": "Google Health: Resting Heart Rate 54 bpm"
+    },
+    {
+      "id": "fitbit-air-hrv-2026-11-14",
+      "exercise_id": "hrv",
+      "timestamp": "2026-11-14T08:00:00.000Z",
+      "metric_values": {
+        "rMSSD": 62
+      },
+      "modifier_value": "Baseline",
+      "session_tags": [
+        "Sore"
+      ],
+      "raw_transcript": "Google Health: HRV 62 ms"
+    },
+    {
+      "id": "fitbit-air-dur-2026-11-13",
+      "exercise_id": "total_sleep_duration",
+      "timestamp": "2026-11-13T08:00:00.000Z",
+      "metric_values": {
+        "Duration": 7.5
+      },
+      "modifier_value": "Optimal",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: Total Sleep 7.5 hrs"
+    },
+    {
+      "id": "fitbit-air-deep-2026-11-13",
+      "exercise_id": "deep_sleep",
+      "timestamp": "2026-11-13T08:00:00.000Z",
+      "metric_values": {
+        "Minutes": 78
+      },
+      "modifier_value": "Optimal",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: Deep Sleep 78 mins"
+    },
+    {
+      "id": "fitbit-air-rem-2026-11-13",
+      "exercise_id": "rem_sleep",
+      "timestamp": "2026-11-13T08:00:00.000Z",
+      "metric_values": {
+        "Minutes": 116
+      },
+      "modifier_value": "High",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: REM Sleep 116 mins"
+    },
+    {
+      "id": "fitbit-air-rhr-2026-11-13",
+      "exercise_id": "resting_heart_rate",
+      "timestamp": "2026-11-13T08:00:00.000Z",
+      "metric_values": {
+        "BPM": 50
+      },
+      "modifier_value": "Resting",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health: Resting Heart Rate 50 bpm"
+    },
+    {
+      "id": "fitbit-air-hrv-2026-11-13",
+      "exercise_id": "hrv",
+      "timestamp": "2026-11-13T08:00:00.000Z",
+      "metric_values": {
+        "rMSSD": 76
+      },
+      "modifier_value": "High Recovery",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health: HRV 76 ms"
+    },
+    {
+      "id": "fitbit-air-dur-2026-11-12",
+      "exercise_id": "total_sleep_duration",
+      "timestamp": "2026-11-12T08:00:00.000Z",
+      "metric_values": {
+        "Duration": 5.9
+      },
+      "modifier_value": "Deficit",
+      "session_tags": [
+        "Sore"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: Total Sleep 5.9 hrs"
+    },
+    {
+      "id": "fitbit-air-deep-2026-11-12",
+      "exercise_id": "deep_sleep",
+      "timestamp": "2026-11-12T08:00:00.000Z",
+      "metric_values": {
+        "Minutes": 53
+      },
+      "modifier_value": "Average",
+      "session_tags": [
+        "Sore"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: Deep Sleep 53 mins"
+    },
+    {
+      "id": "fitbit-air-rem-2026-11-12",
+      "exercise_id": "rem_sleep",
+      "timestamp": "2026-11-12T08:00:00.000Z",
+      "metric_values": {
+        "Minutes": 99
+      },
+      "modifier_value": "High",
+      "session_tags": [
+        "Sore"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: REM Sleep 99 mins"
+    },
+    {
+      "id": "fitbit-air-rhr-2026-11-12",
+      "exercise_id": "resting_heart_rate",
+      "timestamp": "2026-11-12T08:00:00.000Z",
+      "metric_values": {
+        "BPM": 58
+      },
+      "modifier_value": "Elevated",
+      "session_tags": [
+        "Sore"
+      ],
+      "raw_transcript": "Google Health: Resting Heart Rate 58 bpm"
+    },
+    {
+      "id": "fitbit-air-hrv-2026-11-12",
+      "exercise_id": "hrv",
+      "timestamp": "2026-11-12T08:00:00.000Z",
+      "metric_values": {
+        "rMSSD": 52
+      },
+      "modifier_value": "Baseline",
+      "session_tags": [
+        "Sore"
+      ],
+      "raw_transcript": "Google Health: HRV 52 ms"
+    },
+    {
+      "id": "fitbit-air-dur-2026-11-11",
+      "exercise_id": "total_sleep_duration",
+      "timestamp": "2026-11-11T08:00:00.000Z",
+      "metric_values": {
+        "Duration": 7.1
+      },
+      "modifier_value": "Sufficient",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: Total Sleep 7.1 hrs"
+    },
+    {
+      "id": "fitbit-air-deep-2026-11-11",
+      "exercise_id": "deep_sleep",
+      "timestamp": "2026-11-11T08:00:00.000Z",
+      "metric_values": {
+        "Minutes": 66
+      },
+      "modifier_value": "Average",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: Deep Sleep 66 mins"
+    },
+    {
+      "id": "fitbit-air-rem-2026-11-11",
+      "exercise_id": "rem_sleep",
+      "timestamp": "2026-11-11T08:00:00.000Z",
+      "metric_values": {
+        "Minutes": 94
+      },
+      "modifier_value": "High",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: REM Sleep 94 mins"
+    },
+    {
+      "id": "fitbit-air-rhr-2026-11-11",
+      "exercise_id": "resting_heart_rate",
+      "timestamp": "2026-11-11T08:00:00.000Z",
+      "metric_values": {
+        "BPM": 53
+      },
+      "modifier_value": "Resting",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health: Resting Heart Rate 53 bpm"
+    },
+    {
+      "id": "fitbit-air-hrv-2026-11-11",
+      "exercise_id": "hrv",
+      "timestamp": "2026-11-11T08:00:00.000Z",
+      "metric_values": {
+        "rMSSD": 65
+      },
+      "modifier_value": "High Recovery",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health: HRV 65 ms"
+    },
+    {
+      "id": "fitbit-air-dur-2026-11-10",
+      "exercise_id": "total_sleep_duration",
+      "timestamp": "2026-11-10T08:00:00.000Z",
+      "metric_values": {
+        "Duration": 8.4
+      },
+      "modifier_value": "Optimal",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: Total Sleep 8.4 hrs"
+    },
+    {
+      "id": "fitbit-air-deep-2026-11-10",
+      "exercise_id": "deep_sleep",
+      "timestamp": "2026-11-10T08:00:00.000Z",
+      "metric_values": {
+        "Minutes": 63
+      },
+      "modifier_value": "Average",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: Deep Sleep 63 mins"
+    },
+    {
+      "id": "fitbit-air-rem-2026-11-10",
+      "exercise_id": "rem_sleep",
+      "timestamp": "2026-11-10T08:00:00.000Z",
+      "metric_values": {
+        "Minutes": 111
+      },
+      "modifier_value": "High",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: REM Sleep 111 mins"
+    },
+    {
+      "id": "fitbit-air-rhr-2026-11-10",
+      "exercise_id": "resting_heart_rate",
+      "timestamp": "2026-11-10T08:00:00.000Z",
+      "metric_values": {
+        "BPM": 51
+      },
+      "modifier_value": "Resting",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health: Resting Heart Rate 51 bpm"
+    },
+    {
+      "id": "fitbit-air-hrv-2026-11-10",
+      "exercise_id": "hrv",
+      "timestamp": "2026-11-10T08:00:00.000Z",
+      "metric_values": {
+        "rMSSD": 72
+      },
+      "modifier_value": "High Recovery",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health: HRV 72 ms"
+    },
+    {
+      "id": "fitbit-air-dur-2026-11-09",
+      "exercise_id": "total_sleep_duration",
+      "timestamp": "2026-11-09T08:00:00.000Z",
+      "metric_values": {
+        "Duration": 7.1
+      },
+      "modifier_value": "Sufficient",
+      "session_tags": [
+        "Sore"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: Total Sleep 7.1 hrs"
+    },
+    {
+      "id": "fitbit-air-deep-2026-11-09",
+      "exercise_id": "deep_sleep",
+      "timestamp": "2026-11-09T08:00:00.000Z",
+      "metric_values": {
+        "Minutes": 56
+      },
+      "modifier_value": "Average",
+      "session_tags": [
+        "Sore"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: Deep Sleep 56 mins"
+    },
+    {
+      "id": "fitbit-air-rem-2026-11-09",
+      "exercise_id": "rem_sleep",
+      "timestamp": "2026-11-09T08:00:00.000Z",
+      "metric_values": {
+        "Minutes": 97
+      },
+      "modifier_value": "High",
+      "session_tags": [
+        "Sore"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: REM Sleep 97 mins"
+    },
+    {
+      "id": "fitbit-air-rhr-2026-11-09",
+      "exercise_id": "resting_heart_rate",
+      "timestamp": "2026-11-09T08:00:00.000Z",
+      "metric_values": {
+        "BPM": 54
+      },
+      "modifier_value": "Resting",
+      "session_tags": [
+        "Sore"
+      ],
+      "raw_transcript": "Google Health: Resting Heart Rate 54 bpm"
+    },
+    {
+      "id": "fitbit-air-hrv-2026-11-09",
+      "exercise_id": "hrv",
+      "timestamp": "2026-11-09T08:00:00.000Z",
+      "metric_values": {
+        "rMSSD": 64
+      },
+      "modifier_value": "Baseline",
+      "session_tags": [
+        "Sore"
+      ],
+      "raw_transcript": "Google Health: HRV 64 ms"
+    },
+    {
+      "id": "fitbit-air-dur-2026-11-08",
+      "exercise_id": "total_sleep_duration",
+      "timestamp": "2026-11-08T08:00:00.000Z",
+      "metric_values": {
+        "Duration": 10.2
+      },
+      "modifier_value": "Optimal",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: Total Sleep 10.2 hrs"
+    },
+    {
+      "id": "fitbit-air-deep-2026-11-08",
+      "exercise_id": "deep_sleep",
+      "timestamp": "2026-11-08T08:00:00.000Z",
+      "metric_values": {
+        "Minutes": 90
+      },
+      "modifier_value": "Optimal",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: Deep Sleep 90 mins"
+    },
+    {
+      "id": "fitbit-air-rem-2026-11-08",
+      "exercise_id": "rem_sleep",
+      "timestamp": "2026-11-08T08:00:00.000Z",
+      "metric_values": {
+        "Minutes": 136
+      },
+      "modifier_value": "High",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: REM Sleep 136 mins"
+    },
+    {
+      "id": "fitbit-air-rhr-2026-11-08",
+      "exercise_id": "resting_heart_rate",
+      "timestamp": "2026-11-08T08:00:00.000Z",
+      "metric_values": {
+        "BPM": 48
+      },
+      "modifier_value": "Resting",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health: Resting Heart Rate 48 bpm"
+    },
+    {
+      "id": "fitbit-air-hrv-2026-11-08",
+      "exercise_id": "hrv",
+      "timestamp": "2026-11-08T08:00:00.000Z",
+      "metric_values": {
+        "rMSSD": 85
+      },
+      "modifier_value": "High Recovery",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health: HRV 85 ms"
+    },
+    {
+      "id": "fitbit-air-dur-2026-11-07",
+      "exercise_id": "total_sleep_duration",
+      "timestamp": "2026-11-07T08:00:00.000Z",
+      "metric_values": {
+        "Duration": 6.1
+      },
+      "modifier_value": "Deficit",
+      "session_tags": [
+        "Sore"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: Total Sleep 6.1 hrs"
+    },
+    {
+      "id": "fitbit-air-deep-2026-11-07",
+      "exercise_id": "deep_sleep",
+      "timestamp": "2026-11-07T08:00:00.000Z",
+      "metric_values": {
+        "Minutes": 74
+      },
+      "modifier_value": "Average",
+      "session_tags": [
+        "Sore"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: Deep Sleep 74 mins"
+    },
+    {
+      "id": "fitbit-air-rem-2026-11-07",
+      "exercise_id": "rem_sleep",
+      "timestamp": "2026-11-07T08:00:00.000Z",
+      "metric_values": {
+        "Minutes": 70
+      },
+      "modifier_value": "Moderate",
+      "session_tags": [
+        "Sore"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: REM Sleep 70 mins"
+    },
+    {
+      "id": "fitbit-air-rhr-2026-11-07",
+      "exercise_id": "resting_heart_rate",
+      "timestamp": "2026-11-07T08:00:00.000Z",
+      "metric_values": {
+        "BPM": 57
+      },
+      "modifier_value": "Elevated",
+      "session_tags": [
+        "Sore"
+      ],
+      "raw_transcript": "Google Health: Resting Heart Rate 57 bpm"
+    },
+    {
+      "id": "fitbit-air-hrv-2026-11-07",
+      "exercise_id": "hrv",
+      "timestamp": "2026-11-07T08:00:00.000Z",
+      "metric_values": {
+        "rMSSD": 55
+      },
+      "modifier_value": "Baseline",
+      "session_tags": [
+        "Sore"
+      ],
+      "raw_transcript": "Google Health: HRV 55 ms"
+    },
+    {
+      "id": "fitbit-air-dur-2026-11-06",
+      "exercise_id": "total_sleep_duration",
+      "timestamp": "2026-11-06T08:00:00.000Z",
+      "metric_values": {
+        "Duration": 7.7
+      },
+      "modifier_value": "Optimal",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: Total Sleep 7.7 hrs"
+    },
+    {
+      "id": "fitbit-air-deep-2026-11-06",
+      "exercise_id": "deep_sleep",
+      "timestamp": "2026-11-06T08:00:00.000Z",
+      "metric_values": {
+        "Minutes": 72
+      },
+      "modifier_value": "Average",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: Deep Sleep 72 mins"
+    },
+    {
+      "id": "fitbit-air-rem-2026-11-06",
+      "exercise_id": "rem_sleep",
+      "timestamp": "2026-11-06T08:00:00.000Z",
+      "metric_values": {
+        "Minutes": 111
+      },
+      "modifier_value": "High",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: REM Sleep 111 mins"
+    },
+    {
+      "id": "fitbit-air-rhr-2026-11-06",
+      "exercise_id": "resting_heart_rate",
+      "timestamp": "2026-11-06T08:00:00.000Z",
+      "metric_values": {
+        "BPM": 52
+      },
+      "modifier_value": "Resting",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health: Resting Heart Rate 52 bpm"
+    },
+    {
+      "id": "fitbit-air-hrv-2026-11-06",
+      "exercise_id": "hrv",
+      "timestamp": "2026-11-06T08:00:00.000Z",
+      "metric_values": {
+        "rMSSD": 68
+      },
+      "modifier_value": "High Recovery",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health: HRV 68 ms"
+    },
+    {
+      "id": "fitbit-air-dur-2026-11-05",
+      "exercise_id": "total_sleep_duration",
+      "timestamp": "2026-11-05T08:00:00.000Z",
+      "metric_values": {
+        "Duration": 6.6
+      },
+      "modifier_value": "Sufficient",
+      "session_tags": [
+        "Sore"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: Total Sleep 6.6 hrs"
+    },
+    {
+      "id": "fitbit-air-deep-2026-11-05",
+      "exercise_id": "deep_sleep",
+      "timestamp": "2026-11-05T08:00:00.000Z",
+      "metric_values": {
+        "Minutes": 44
+      },
+      "modifier_value": "Low",
+      "session_tags": [
+        "Sore"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: Deep Sleep 44 mins"
+    },
+    {
+      "id": "fitbit-air-rem-2026-11-05",
+      "exercise_id": "rem_sleep",
+      "timestamp": "2026-11-05T08:00:00.000Z",
+      "metric_values": {
+        "Minutes": 83
+      },
+      "modifier_value": "Moderate",
+      "session_tags": [
+        "Sore"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: REM Sleep 83 mins"
+    },
+    {
+      "id": "fitbit-air-rhr-2026-11-05",
+      "exercise_id": "resting_heart_rate",
+      "timestamp": "2026-11-05T08:00:00.000Z",
+      "metric_values": {
+        "BPM": 60
+      },
+      "modifier_value": "Elevated",
+      "session_tags": [
+        "Sore"
+      ],
+      "raw_transcript": "Google Health: Resting Heart Rate 60 bpm"
+    },
+    {
+      "id": "fitbit-air-hrv-2026-11-05",
+      "exercise_id": "hrv",
+      "timestamp": "2026-11-05T08:00:00.000Z",
+      "metric_values": {
+        "rMSSD": 46
+      },
+      "modifier_value": "Baseline",
+      "session_tags": [
+        "Sore"
+      ],
+      "raw_transcript": "Google Health: HRV 46 ms"
+    },
+    {
+      "id": "fitbit-air-dur-2026-11-04",
+      "exercise_id": "total_sleep_duration",
+      "timestamp": "2026-11-04T08:00:00.000Z",
+      "metric_values": {
+        "Duration": 8
+      },
+      "modifier_value": "Optimal",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: Total Sleep 8 hrs"
+    },
+    {
+      "id": "fitbit-air-deep-2026-11-04",
+      "exercise_id": "deep_sleep",
+      "timestamp": "2026-11-04T08:00:00.000Z",
+      "metric_values": {
+        "Minutes": 96
+      },
+      "modifier_value": "Optimal",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: Deep Sleep 96 mins"
+    },
+    {
+      "id": "fitbit-air-rem-2026-11-04",
+      "exercise_id": "rem_sleep",
+      "timestamp": "2026-11-04T08:00:00.000Z",
+      "metric_values": {
+        "Minutes": 121
+      },
+      "modifier_value": "High",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: REM Sleep 121 mins"
+    },
+    {
+      "id": "fitbit-air-rhr-2026-11-04",
+      "exercise_id": "resting_heart_rate",
+      "timestamp": "2026-11-04T08:00:00.000Z",
+      "metric_values": {
+        "BPM": 49
+      },
+      "modifier_value": "Resting",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health: Resting Heart Rate 49 bpm"
+    },
+    {
+      "id": "fitbit-air-hrv-2026-11-04",
+      "exercise_id": "hrv",
+      "timestamp": "2026-11-04T08:00:00.000Z",
+      "metric_values": {
+        "rMSSD": 79
+      },
+      "modifier_value": "High Recovery",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health: HRV 79 ms"
+    },
+    {
+      "id": "fitbit-air-dur-2026-11-03",
+      "exercise_id": "total_sleep_duration",
+      "timestamp": "2026-11-03T08:00:00.000Z",
+      "metric_values": {
+        "Duration": 7.4
+      },
+      "modifier_value": "Sufficient",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: Total Sleep 7.4 hrs"
+    },
+    {
+      "id": "fitbit-air-deep-2026-11-03",
+      "exercise_id": "deep_sleep",
+      "timestamp": "2026-11-03T08:00:00.000Z",
+      "metric_values": {
+        "Minutes": 70
+      },
+      "modifier_value": "Average",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: Deep Sleep 70 mins"
+    },
+    {
+      "id": "fitbit-air-rem-2026-11-03",
+      "exercise_id": "rem_sleep",
+      "timestamp": "2026-11-03T08:00:00.000Z",
+      "metric_values": {
+        "Minutes": 98
+      },
+      "modifier_value": "High",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: REM Sleep 98 mins"
+    },
+    {
+      "id": "fitbit-air-rhr-2026-11-03",
+      "exercise_id": "resting_heart_rate",
+      "timestamp": "2026-11-03T08:00:00.000Z",
+      "metric_values": {
+        "BPM": 54
+      },
+      "modifier_value": "Resting",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health: Resting Heart Rate 54 bpm"
+    },
+    {
+      "id": "fitbit-air-hrv-2026-11-03",
+      "exercise_id": "hrv",
+      "timestamp": "2026-11-03T08:00:00.000Z",
+      "metric_values": {
+        "rMSSD": 62
+      },
+      "modifier_value": "Baseline",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health: HRV 62 ms"
+    },
+    {
+      "id": "fitbit-air-dur-2026-11-02",
+      "exercise_id": "total_sleep_duration",
+      "timestamp": "2026-11-02T08:00:00.000Z",
+      "metric_values": {
+        "Duration": 7.2
+      },
+      "modifier_value": "Sufficient",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: Total Sleep 7.2 hrs"
+    },
+    {
+      "id": "fitbit-air-deep-2026-11-02",
+      "exercise_id": "deep_sleep",
+      "timestamp": "2026-11-02T08:00:00.000Z",
+      "metric_values": {
+        "Minutes": 68
+      },
+      "modifier_value": "Average",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: Deep Sleep 68 mins"
+    },
+    {
+      "id": "fitbit-air-rem-2026-11-02",
+      "exercise_id": "rem_sleep",
+      "timestamp": "2026-11-02T08:00:00.000Z",
+      "metric_values": {
+        "Minutes": 92
+      },
+      "modifier_value": "High",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: REM Sleep 92 mins"
+    },
+    {
+      "id": "fitbit-air-rhr-2026-11-02",
+      "exercise_id": "resting_heart_rate",
+      "timestamp": "2026-11-02T08:00:00.000Z",
+      "metric_values": {
+        "BPM": 55
+      },
+      "modifier_value": "Elevated",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health: Resting Heart Rate 55 bpm"
+    },
+    {
+      "id": "fitbit-air-hrv-2026-11-02",
+      "exercise_id": "hrv",
+      "timestamp": "2026-11-02T08:00:00.000Z",
+      "metric_values": {
+        "rMSSD": 60
+      },
+      "modifier_value": "Baseline",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health: HRV 60 ms"
+    },
+    {
+      "id": "fitbit-air-dur-2026-11-01",
+      "exercise_id": "total_sleep_duration",
+      "timestamp": "2026-11-01T08:00:00.000Z",
+      "metric_values": {
+        "Duration": 7.6
+      },
+      "modifier_value": "Optimal",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: Total Sleep 7.6 hrs"
+    },
+    {
+      "id": "fitbit-air-deep-2026-11-01",
+      "exercise_id": "deep_sleep",
+      "timestamp": "2026-11-01T08:00:00.000Z",
+      "metric_values": {
+        "Minutes": 80
+      },
+      "modifier_value": "Optimal",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: Deep Sleep 80 mins"
+    },
+    {
+      "id": "fitbit-air-rem-2026-11-01",
+      "exercise_id": "rem_sleep",
+      "timestamp": "2026-11-01T08:00:00.000Z",
+      "metric_values": {
+        "Minutes": 105
+      },
+      "modifier_value": "High",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health Fitbit Air: REM Sleep 105 mins"
+    },
+    {
+      "id": "fitbit-air-rhr-2026-11-01",
+      "exercise_id": "resting_heart_rate",
+      "timestamp": "2026-11-01T08:00:00.000Z",
+      "metric_values": {
+        "BPM": 52
+      },
+      "modifier_value": "Resting",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health: Resting Heart Rate 52 bpm"
+    },
+    {
+      "id": "fitbit-air-hrv-2026-11-01",
+      "exercise_id": "hrv",
+      "timestamp": "2026-11-01T08:00:00.000Z",
+      "metric_values": {
+        "rMSSD": 67
+      },
+      "modifier_value": "High Recovery",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Google Health: HRV 67 ms"
+    },
+    {
+      "id": "log-b7539346",
+      "exercise_id": "fat_grip_pullups",
+      "timestamp": "2026-11-15T16:56:09.703Z",
+      "metric_values": {
+        "Reps": 20
+      },
+      "modifier_value": "5",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "20 fat grip pull-ups"
+    },
+    {
+      "id": "log-ff8560e8",
+      "exercise_id": "incline_db_press",
+      "timestamp": "2026-11-14T00:00:00Z",
+      "metric_values": {
+        "Weight": 40
+      },
+      "modifier_value": "5",
+      "session_tags": [
+        "Fresh"
+      ],
+      "raw_transcript": "Yesterday's workout: 40kg incline db press"
+    }
+  ]
+}
