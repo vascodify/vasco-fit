@@ -1681,6 +1681,61 @@
         "Fresh"
       ],
       "raw_transcript": "Yesterday's workout: 40kg incline db press"
+    },
+    {
+      "id": "log-health-dur-1794826654875",
+      "exercise_id": "total_sleep_duration",
+      "timestamp": "2026-11-16T10:57:33.709Z",
+      "metric_values": {
+        "Duration": 7.6
+      },
+      "modifier_value": "Optimal",
+      "session_tags": [],
+      "raw_transcript": "Google Health: Total Sleep 7.6 hrs (Optimal)"
+    },
+    {
+      "id": "log-health-deep-1794826654878",
+      "exercise_id": "deep_sleep",
+      "timestamp": "2026-11-16T10:57:33.709Z",
+      "metric_values": {
+        "Minutes": 80
+      },
+      "modifier_value": "Optimal",
+      "session_tags": [],
+      "raw_transcript": "Google Health: Deep Sleep 80 mins (Optimal)"
+    },
+    {
+      "id": "log-health-rem-1794826654879",
+      "exercise_id": "rem_sleep",
+      "timestamp": "2026-11-16T10:57:33.709Z",
+      "metric_values": {
+        "Minutes": 105
+      },
+      "modifier_value": "High",
+      "session_tags": [],
+      "raw_transcript": "Google Health: REM Sleep 105 mins (High)"
+    },
+    {
+      "id": "log-health-rhr-1794826654880",
+      "exercise_id": "resting_heart_rate",
+      "timestamp": "2026-11-16T10:57:33.709Z",
+      "metric_values": {
+        "BPM": 52
+      },
+      "modifier_value": "Resting",
+      "session_tags": [],
+      "raw_transcript": "Google Health: Resting Heart Rate 52 bpm (Resting)"
+    },
+    {
+      "id": "log-health-hrv-1794826654881",
+      "exercise_id": "hrv",
+      "timestamp": "2026-11-16T10:57:33.709Z",
+      "metric_values": {
+        "rMSSD": 67
+      },
+      "modifier_value": "High Recovery",
+      "session_tags": [],
+      "raw_transcript": "Google Health: HRV 67 ms (High Recovery)"
     }
   ]
 }

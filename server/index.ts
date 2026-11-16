@@ -28,10 +28,18 @@ app.use(express.json({ limit: '25mb' }));
 const PORT = Number(process.env.PORT || 3001);
 const server = http.createServer(app);
 
-// WebSocket server for sub-second real-time dashboard push
-const wss = new WebSocketServer({ server, path: '/ws' });
+// WebSocket server for local development real-time dashboard push
+let wss: WebSocketServer | null = null;
+if (!process.env.VERCEL) {
+  try {
+    wss = new WebSocketServer({ server, path: '/ws' });
+  } catch (err) {
+    console.warn('[V.A.S.C.O.] WebSocketServer initialization warning:', err);
+  }
+}
 
 function broadcastWs(payload: unknown) {
+  if (!wss) return;
   const msg = JSON.stringify(payload);
   for (const client of wss.clients) {
     if (client.readyState === WebSocket.OPEN) {
@@ -63,7 +71,7 @@ app.get(['/health', '/api/health'], (_req, res) => {
 });
 
 // Authentication endpoints
-app.post('/api/auth/login', (req, res) => {
+app.post(['/api/auth/login', '/auth/login'], (req, res) => {
   const { password } = req.body || {};
   if (password && String(password).trim() === APP_PASSWORD.trim()) {
     return res.json({ ok: true, token: SESSION_TOKEN });
@@ -71,7 +79,7 @@ app.post('/api/auth/login', (req, res) => {
   return res.status(401).json({ ok: false, error: 'Incorrect password' });
 });
 
-app.get('/api/auth/check', (req, res) => {
+app.get(['/api/auth/check', '/auth/check'], (req, res) => {
   const authHeader = req.headers.authorization;
   const token = authHeader ? authHeader.replace(/^Bearer\s+/i, '').trim() : null;
   if (token === SESSION_TOKEN) {
@@ -89,7 +97,7 @@ function requireAuth(req: express.Request, res: express.Response, next: express.
   next();
 }
 
-app.get('/api/state', requireAuth, async (_req, res) => {
+app.get(['/api/state', '/state'], requireAuth, async (_req, res) => {
   try {
     const db = await getAllData();
     res.json({
@@ -112,7 +120,7 @@ app.get('/api/state', requireAuth, async (_req, res) => {
   }
 });
 
-app.post('/api/ingest', requireAuth, async (req, res) => {
+app.post(['/api/ingest', '/ingest'], requireAuth, async (req, res) => {
   try {
     const { text, audioBase64, audioMimeType } = req.body as {
       text?: string;
@@ -135,7 +143,7 @@ app.post('/api/ingest', requireAuth, async (req, res) => {
   }
 });
 
-app.post('/api/log', requireAuth, async (req, res) => {
+app.post(['/api/log', '/log'], requireAuth, async (req, res) => {
   try {
     const entry = await toolLogExercise(req.body);
     res.json(entry);
@@ -146,7 +154,7 @@ app.post('/api/log', requireAuth, async (req, res) => {
   }
 });
 
-app.post('/api/health/sync', requireAuth, async (req, res) => {
+app.post(['/api/health/sync', '/health/sync'], requireAuth, async (req, res) => {
   try {
     const {
       totalSleepDuration,
@@ -176,7 +184,7 @@ app.post('/api/health/sync', requireAuth, async (req, res) => {
   }
 });
 
-app.post('/api/blueprint', requireAuth, async (req, res) => {
+app.post(['/api/blueprint', '/blueprint'], requireAuth, async (req, res) => {
   try {
     const bp = await toolUpsertBlueprint(req.body as ExerciseBlueprint);
     res.json(bp);
@@ -187,7 +195,7 @@ app.post('/api/blueprint', requireAuth, async (req, res) => {
   }
 });
 
-app.post('/api/reset', requireAuth, async (_req, res) => {
+app.post(['/api/reset', '/reset'], requireAuth, async (_req, res) => {
   try {
     const db = resetToSeedData();
     res.json({ db });
@@ -198,7 +206,7 @@ app.post('/api/reset', requireAuth, async (_req, res) => {
   }
 });
 
-app.post('/api/clear', requireAuth, async (_req, res) => {
+app.post(['/api/clear', '/clear'], requireAuth, async (_req, res) => {
   try {
     const db = await clearAllData();
     res.json({ db });
@@ -209,7 +217,7 @@ app.post('/api/clear', requireAuth, async (_req, res) => {
   }
 });
 
-app.post('/api/config', requireAuth, async (req, res) => {
+app.post(['/api/config', '/config'], requireAuth, async (req, res) => {
   try {
     const { geminiApiKey, supabaseUrl, supabaseAnonKey, fitbitAccessToken } = req.body as {
       geminiApiKey?: string;
@@ -291,9 +299,11 @@ function checkAndAutoSyncDailyHealth() {
   }
 }
 
-// Check every 15 minutes in the background
-setInterval(checkAndAutoSyncDailyHealth, 15 * 60 * 1000);
-checkAndAutoSyncDailyHealth();
+// Check every 15 minutes in the background (local server mode only)
+if (!process.env.VERCEL) {
+  setInterval(checkAndAutoSyncDailyHealth, 15 * 60 * 1000);
+  checkAndAutoSyncDailyHealth();
+}
 
 // Serve static production Vite build if dist/ exists
 const distPath = path.resolve(process.cwd(), 'dist');
