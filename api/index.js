@@ -5,7 +5,6 @@ import path2 from "path";
 import http from "http";
 import express from "express";
 import cors from "cors";
-import { WebSocketServer, WebSocket } from "ws";
 
 // server/store.ts
 import fs from "fs";
@@ -1687,42 +1686,19 @@ ${contextSnapshot}`
   };
 }
 
-// server/mcp-server.ts
-import "dotenv/config";
-import { Server } from "@modelcontextprotocol/sdk/server/index.js";
-import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import {
-  CallToolRequestSchema,
-  ListToolsRequestSchema
-} from "@modelcontextprotocol/sdk/types.js";
+// server/types.ts
 var VASCO_MCP_TOOL_DEFINITIONS = [
   {
     name: "log_exercise",
-    description: "Logs an exercise instance into V.A.S.C.O. following the Blueprint & Instance Model. Supports single metrics (Time in seconds, Reps) and compound metrics (Weight + Reps), plus Modifier values (e.g. Band Assistance: None/Light/Medium/Heavy; Deficit: Floor/Parallettes/Blocks; Additional Weight: +10kg; Form Quality: 1-5) and Session Tags (Fresh, Sore, Heavy).",
+    description: "Logs an exercise instance into V.A.S.C.O. following the Blueprint & Instance Model. Supports single metrics and compound metrics, plus Modifier values and Session Tags.",
     inputSchema: {
       type: "object",
       properties: {
-        exercise_id: {
-          type: "string",
-          description: "Blueprint ID: muscle_up_transition_pulses, fat_grip_pullups, weighted_pullups, dips, sphinx_pushups, pike_presses, deadlift, or squat"
-        },
-        metric_values: {
-          type: "object",
-          description: 'Key-value object of measured metrics e.g. {"Time": 15} or {"Reps": 12} or {"Weight": 25, "Reps": 5}'
-        },
-        modifier_value: {
-          type: "string",
-          description: 'Modifier value e.g. "Light" (band), "Parallettes" (deficit), "+15kg" (dip load), or "5" (form quality 1-5)'
-        },
-        session_tags: {
-          type: "array",
-          items: { type: "string" },
-          description: 'Contextual recovery/session tags e.g. ["Fresh"], ["Sore"], ["Heavy"]'
-        },
-        notes: {
-          type: "string",
-          description: "Optional notes about the set or feel"
-        }
+        exercise_id: { type: "string" },
+        metric_values: { type: "object" },
+        modifier_value: { type: "string" },
+        session_tags: { type: "array", items: { type: "string" } },
+        notes: { type: "string" }
       },
       required: ["exercise_id", "metric_values"]
     }
@@ -1743,67 +1719,6 @@ var VASCO_MCP_TOOL_DEFINITIONS = [
     }
   }
 ];
-async function runMcpServer() {
-  const server2 = new Server(
-    {
-      name: "vasco-mcp-server",
-      version: "2.0.0"
-    },
-    {
-      capabilities: {
-        tools: {}
-      }
-    }
-  );
-  server2.setRequestHandler(ListToolsRequestSchema, async () => {
-    return {
-      tools: VASCO_MCP_TOOL_DEFINITIONS
-    };
-  });
-  server2.setRequestHandler(CallToolRequestSchema, async (request) => {
-    const { name, arguments: args = {} } = request.params;
-    try {
-      let result;
-      switch (name) {
-        case "log_exercise":
-          result = await toolLogExercise(args);
-          break;
-        case "upsert_exercise_blueprint":
-          result = await toolUpsertBlueprint(args);
-          break;
-        default:
-          throw new Error(`Unknown V.A.S.C.O. MCP tool: ${name}`);
-      }
-      return {
-        content: [
-          {
-            type: "text",
-            text: JSON.stringify(result, null, 2)
-          }
-        ]
-      };
-    } catch (error) {
-      return {
-        isError: true,
-        content: [
-          {
-            type: "text",
-            text: `Error executing ${name}: ${error instanceof Error ? error.message : String(error)}`
-          }
-        ]
-      };
-    }
-  });
-  const transport = new StdioServerTransport();
-  await server2.connect(transport);
-  console.error("[V.A.S.C.O. MCP] Server v2.0 (Blueprint & Instance Model) running on stdio");
-}
-if (import.meta.url === `file://${process.argv[1]}`) {
-  runMcpServer().catch((err) => {
-    console.error("[V.A.S.C.O. MCP] Fatal error:", err);
-    process.exit(1);
-  });
-}
 
 // server/index.ts
 dotenv.config();
@@ -1815,6 +1730,7 @@ var server = http.createServer(app);
 var wss = null;
 if (!process.env.VERCEL) {
   try {
+    const { WebSocketServer } = await import("ws");
     wss = new WebSocketServer({ server, path: "/ws" });
   } catch (err) {
     console.warn("[V.A.S.C.O.] WebSocketServer initialization warning:", err);
@@ -1824,7 +1740,7 @@ function broadcastWs(payload) {
   if (!wss) return;
   const msg = JSON.stringify(payload);
   for (const client of wss.clients) {
-    if (client.readyState === WebSocket.OPEN) {
+    if (client.readyState === 1) {
       client.send(msg);
     }
   }

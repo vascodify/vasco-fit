@@ -44,3 +44,37 @@ export interface VascoDatabase {
   exercises: ExerciseBlueprint[];
   logs: ExerciseLog[];
 }
+
+export const VASCO_MCP_TOOL_DEFINITIONS = [
+  {
+    name: 'log_exercise',
+    description:
+      'Logs an exercise instance into V.A.S.C.O. following the Blueprint & Instance Model. Supports single metrics and compound metrics, plus Modifier values and Session Tags.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        exercise_id: { type: 'string' },
+        metric_values: { type: 'object' },
+        modifier_value: { type: 'string' },
+        session_tags: { type: 'array', items: { type: 'string' } },
+        notes: { type: 'string' },
+      },
+      required: ['exercise_id', 'metric_values'],
+    },
+  },
+  {
+    name: 'upsert_exercise_blueprint',
+    description: 'Creates or updates an Exercise Blueprint definition in V.A.S.C.O.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string' },
+        name: { type: 'string' },
+        is_active_focus: { type: 'boolean' },
+        metrics: { type: 'array' },
+        modifier: { type: 'object' },
+      },
+      required: ['id', 'name', 'metrics'],
+    },
+  },
+];

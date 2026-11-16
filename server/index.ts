@@ -5,7 +5,6 @@ import path from 'path';
 import http from 'http';
 import express from 'express';
 import cors from 'cors';
-import { WebSocketServer, WebSocket } from 'ws';
 import {
   getAllData,
   loadLocalDb,
@@ -19,8 +18,7 @@ import {
 } from './store.ts';
 import { toolLogExercise, toolUpsertBlueprint } from './mcp-tools.ts';
 import { processUserInputWithVascoAgent } from './gemini-agent.ts';
-import { VASCO_MCP_TOOL_DEFINITIONS } from './mcp-server.ts';
-import { ExerciseBlueprint } from './types.ts';
+import { ExerciseBlueprint, VASCO_MCP_TOOL_DEFINITIONS } from './types.ts';
 
 const app = express();
 app.use(cors());
@@ -29,10 +27,11 @@ app.use(express.json({ limit: '25mb' }));
 const PORT = Number(process.env.PORT || 3001);
 const server = http.createServer(app);
 
-// WebSocket server for local development real-time dashboard push
-let wss: WebSocketServer | null = null;
+// WebSocket server for local development real-time dashboard push (bypassed on Vercel)
+let wss: any = null;
 if (!process.env.VERCEL) {
   try {
+    const { WebSocketServer } = await import('ws');
     wss = new WebSocketServer({ server, path: '/ws' });
   } catch (err) {
     console.warn('[V.A.S.C.O.] WebSocketServer initialization warning:', err);
@@ -43,7 +42,7 @@ function broadcastWs(payload: unknown) {
   if (!wss) return;
   const msg = JSON.stringify(payload);
   for (const client of wss.clients) {
-    if (client.readyState === WebSocket.OPEN) {
+    if (client.readyState === 1) { // 1 = WebSocket.OPEN
       client.send(msg);
     }
   }
