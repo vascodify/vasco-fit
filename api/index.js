@@ -1,5 +1,5 @@
 // server/index.ts
-import "dotenv/config";
+import dotenv from "dotenv";
 import fs2 from "fs";
 import path2 from "path";
 import http from "http";
@@ -1806,6 +1806,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
 }
 
 // server/index.ts
+dotenv.config();
 var app = express();
 app.use(cors());
 app.use(express.json({ limit: "25mb" }));
@@ -2065,12 +2066,8 @@ if (!process.env.VERCEL) {
     console.log(`\u{1F680} [V.A.S.C.O Server] Listening on http://localhost:${PORT} (WebSocket: ws://localhost:${PORT}/ws)`);
   });
 }
-var server_default = app;
-
-// api/index.ts
-function handler(req, res) {
-  return server_default(req, res);
-}
+var index_default = app;
 export {
-  handler as default
+  app,
+  index_default as default
 };

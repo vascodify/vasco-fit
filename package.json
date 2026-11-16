@@ -9,7 +9,7 @@
     "dev:server": "tsx watch server/index.ts",
     "dev:client": "vite --port 5173",
     "mcp": "tsx server/mcp-server.ts",
-    "build": "tsc && vite build && esbuild api/index.ts --bundle --platform=node --format=esm --packages=external --outfile=api/index.js",
+    "build": "tsc && vite build && esbuild server/index.ts --bundle --platform=node --format=esm --packages=external --outfile=api/index.js",
     "preview": "vite preview",
     "start": "tsx server/index.ts"
   },
