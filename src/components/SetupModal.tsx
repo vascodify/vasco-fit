@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Key, Database, CheckCircle2, Copy, Check, ExternalLink, RotateCcw, Trash2, AlertTriangle } from 'lucide-react';
+import { X, Key, Database, CheckCircle2, Copy, Check, ExternalLink, RotateCcw, Trash2, AlertTriangle, Zap } from 'lucide-react';
 
 interface SetupModalProps {
   isOpen: boolean;
@@ -10,6 +10,7 @@ interface SetupModalProps {
     supabaseAnonKey: string;
     geminiConfigured: boolean;
     fitbitConnected?: boolean;
+    googlePermanentSync?: boolean;
     fitbitAccessToken?: string;
   };
   onSaved: () => void;
@@ -200,36 +201,50 @@ export const SetupModal: React.FC<SetupModalProps> = ({
             </p>
           </div>
 
-          {/* 3. Fitbit / Google Health Connection */}
-          <div className="p-4 rounded-xl bg-slate-900/70 border border-slate-800/80 space-y-2">
+          {/* 3. Google Health / Fitbit Cloud Sync */}
+          <div className="p-4 rounded-xl bg-slate-900/70 border border-slate-800/80 space-y-3">
             <div className="flex items-center justify-between">
               <label className="text-sm font-semibold text-slate-200 flex items-center gap-2">
-                3. Fitbit / Google Health Access Token (Sleep & Readiness Auto-Sync)
+                3. Google Health & Fitbit Cloud Sync
                 {status.fitbitConnected && (
                   <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] bg-emerald-500/20 text-emerald-300">
-                    <CheckCircle2 className="w-3 h-3" /> Connected
+                    <CheckCircle2 className="w-3 h-3" /> {status.googlePermanentSync ? 'Permanent Cloud Sync Active' : 'Connected'}
                   </span>
                 )}
               </label>
+            </div>
+            
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-3.5 rounded-xl bg-[#090b10] border border-cyan-500/30">
+              <div className="space-y-0.5 text-left w-full">
+                <div className="text-xs font-semibold text-white flex items-center gap-1.5">
+                  <Zap className="w-3.5 h-3.5 text-cyan-400" />
+                  Hands-Free Google Cloud OAuth
+                </div>
+                <p className="text-[11px] text-slate-400">
+                  Direct connection with Google Health. Syncs Sleep, Deep, REM, Resting HR & HRV automatically.
+                </p>
+              </div>
               <a
-                href="https://dev.fitbit.com/apps"
-                target="_blank"
-                rel="noreferrer"
-                className="text-xs text-emerald-400 hover:underline flex items-center gap-1"
+                href="/api/auth/google"
+                className="w-full sm:w-auto px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white text-xs font-bold shrink-0 transition flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 cursor-pointer text-center"
               >
-                Fitbit Developer Portal <ExternalLink className="w-3 h-3" />
+                <CheckCircle2 className="w-3.5 h-3.5" />
+                {status.fitbitConnected ? 'Re-link Google Account' : 'Connect Google Health'}
               </a>
             </div>
-            <input
-              type="password"
-              value={fitbitAccessToken}
-              onChange={(e) => setFitbitAccessToken(e.target.value)}
-              placeholder={status.fitbitConnected ? '•••••••••••••••••••••••• (Connected to Fitbit)' : 'Paste Fitbit Personal OAuth 2.0 Access Token...'}
-              className="w-full px-3 py-2 rounded-lg bg-[#090b10] border border-slate-700 text-sm text-white focus:border-emerald-500 focus:outline-none font-mono"
-            />
-            <p className="text-[11px] text-slate-400">
-              Synced automatically every morning at 8:00 AM without using any AI tokens ($0.00).
-            </p>
+
+            <details className="text-[11px] text-slate-400 pt-1">
+              <summary className="cursor-pointer text-slate-400 hover:text-slate-300">Advanced: Manual Token Override</summary>
+              <div className="pt-2 space-y-1.5">
+                <input
+                  type="password"
+                  value={fitbitAccessToken}
+                  onChange={(e) => setFitbitAccessToken(e.target.value)}
+                  placeholder={status.fitbitConnected ? '•••••••••••••••••••••••• (Managed automatically via OAuth)' : 'Paste manual access token if needed...'}
+                  className="w-full px-3 py-2 rounded-lg bg-[#090b10] border border-slate-700 text-xs text-white focus:border-cyan-500 focus:outline-none font-mono"
+                />
+              </div>
+            </details>
           </div>
 
           {/* 4. Safeguarded Data Maintenance */}

@@ -824,6 +824,107 @@ export async function upsertExerciseBlueprint(
   return blueprint;
 }
 
+let cachedAccessToken: string | null = null;
+let tokenExpiresAt = 0;
+
+export async function getValidGoogleAccessToken(): Promise<string | null> {
+  const clientId = process.env.GOOGLE_HEALTH_CLIENT_ID || '';
+  const clientSecret = process.env.GOOGLE_HEALTH_CLIENT_SECRET || '';
+  let refreshToken = process.env.GOOGLE_HEALTH_REFRESH_TOKEN?.trim();
+
+  // Return unexpired cached token if still valid for at least 60 seconds
+  if (cachedAccessToken && Date.now() < tokenExpiresAt - 60000) {
+    return cachedAccessToken;
+  }
+
+  // If not in env, check Supabase app_config
+  if (!refreshToken) {
+    const supa = getSupabaseClient();
+    if (supa) {
+      try {
+        const { data } = await supa
+          .from('app_config')
+          .select('value')
+          .eq('key', 'google_refresh_token')
+          .single();
+        if (data?.value) {
+          refreshToken = data.value;
+          process.env.GOOGLE_HEALTH_REFRESH_TOKEN = refreshToken;
+        }
+      } catch {
+        // app_config table may not exist yet, fallback gracefully
+      }
+    }
+  }
+
+  // If we have a refresh token, mint a fresh access token from Google
+  if (refreshToken) {
+    try {
+      const resp = await fetch('https://oauth2.googleapis.com/token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          client_id: clientId,
+          client_secret: clientSecret,
+          refresh_token: refreshToken,
+          grant_type: 'refresh_token',
+        }),
+      });
+
+      if (resp.ok) {
+        const data = await resp.json();
+        if (data.access_token) {
+          cachedAccessToken = data.access_token;
+          tokenExpiresAt = Date.now() + (data.expires_in || 3600) * 1000;
+          process.env.FITBIT_ACCESS_TOKEN = data.access_token;
+          return cachedAccessToken;
+        }
+      } else {
+        const errText = await resp.text();
+        console.warn('[Google OAuth] Token refresh failed:', resp.status, errText);
+      }
+    } catch (err) {
+      console.warn('[Google OAuth] Error refreshing token:', err);
+    }
+  }
+
+  return process.env.FITBIT_ACCESS_TOKEN?.trim() || null;
+}
+
+export async function saveGoogleRefreshToken(token: string): Promise<void> {
+  process.env.GOOGLE_HEALTH_REFRESH_TOKEN = token;
+  const supa = getSupabaseClient();
+  if (supa) {
+    try {
+      await supa
+        .from('app_config')
+        .upsert([{ key: 'google_refresh_token', value: token }], { onConflict: 'key' });
+    } catch {
+      // app_config table optional
+    }
+  }
+
+  try {
+    const fs = await import('fs');
+    const path = await import('path');
+    const envPath = path.resolve(process.cwd(), '.env');
+    if (fs.existsSync(envPath)) {
+      let content = fs.readFileSync(envPath, 'utf8');
+      if (content.includes('GOOGLE_HEALTH_REFRESH_TOKEN=')) {
+        content = content.replace(
+          /GOOGLE_HEALTH_REFRESH_TOKEN=.*/,
+          `GOOGLE_HEALTH_REFRESH_TOKEN=${token}`
+        );
+      } else {
+        content += `\nGOOGLE_HEALTH_REFRESH_TOKEN=${token}\n`;
+      }
+      fs.writeFileSync(envPath, content, 'utf8');
+    }
+  } catch {
+    // Read-only filesystem in Vercel lambda is fine
+  }
+}
+
 export async function fetchLiveGoogleHealthData(): Promise<{
   totalSleepDuration?: number;
   deepSleepMinutes?: number;
@@ -831,7 +932,7 @@ export async function fetchLiveGoogleHealthData(): Promise<{
   restingHeartRate?: number;
   hrvMs?: number;
 } | null> {
-  const token = process.env.FITBIT_ACCESS_TOKEN?.trim();
+  const token = await getValidGoogleAccessToken();
   if (!token) return null;
 
   try {

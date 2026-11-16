@@ -761,8 +761,90 @@ async function upsertExerciseBlueprint(blueprint) {
   });
   return blueprint;
 }
+var cachedAccessToken = null;
+var tokenExpiresAt = 0;
+async function getValidGoogleAccessToken() {
+  const clientId = process.env.GOOGLE_HEALTH_CLIENT_ID || "";
+  const clientSecret = process.env.GOOGLE_HEALTH_CLIENT_SECRET || "";
+  let refreshToken = process.env.GOOGLE_HEALTH_REFRESH_TOKEN?.trim();
+  if (cachedAccessToken && Date.now() < tokenExpiresAt - 6e4) {
+    return cachedAccessToken;
+  }
+  if (!refreshToken) {
+    const supa = getSupabaseClient();
+    if (supa) {
+      try {
+        const { data } = await supa.from("app_config").select("value").eq("key", "google_refresh_token").single();
+        if (data?.value) {
+          refreshToken = data.value;
+          process.env.GOOGLE_HEALTH_REFRESH_TOKEN = refreshToken;
+        }
+      } catch {
+      }
+    }
+  }
+  if (refreshToken) {
+    try {
+      const resp = await fetch("https://oauth2.googleapis.com/token", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          client_id: clientId,
+          client_secret: clientSecret,
+          refresh_token: refreshToken,
+          grant_type: "refresh_token"
+        })
+      });
+      if (resp.ok) {
+        const data = await resp.json();
+        if (data.access_token) {
+          cachedAccessToken = data.access_token;
+          tokenExpiresAt = Date.now() + (data.expires_in || 3600) * 1e3;
+          process.env.FITBIT_ACCESS_TOKEN = data.access_token;
+          return cachedAccessToken;
+        }
+      } else {
+        const errText = await resp.text();
+        console.warn("[Google OAuth] Token refresh failed:", resp.status, errText);
+      }
+    } catch (err) {
+      console.warn("[Google OAuth] Error refreshing token:", err);
+    }
+  }
+  return process.env.FITBIT_ACCESS_TOKEN?.trim() || null;
+}
+async function saveGoogleRefreshToken(token) {
+  process.env.GOOGLE_HEALTH_REFRESH_TOKEN = token;
+  const supa = getSupabaseClient();
+  if (supa) {
+    try {
+      await supa.from("app_config").upsert([{ key: "google_refresh_token", value: token }], { onConflict: "key" });
+    } catch {
+    }
+  }
+  try {
+    const fs3 = await import("fs");
+    const path3 = await import("path");
+    const envPath = path3.resolve(process.cwd(), ".env");
+    if (fs3.existsSync(envPath)) {
+      let content = fs3.readFileSync(envPath, "utf8");
+      if (content.includes("GOOGLE_HEALTH_REFRESH_TOKEN=")) {
+        content = content.replace(
+          /GOOGLE_HEALTH_REFRESH_TOKEN=.*/,
+          `GOOGLE_HEALTH_REFRESH_TOKEN=${token}`
+        );
+      } else {
+        content += `
+GOOGLE_HEALTH_REFRESH_TOKEN=${token}
+`;
+      }
+      fs3.writeFileSync(envPath, content, "utf8");
+    }
+  } catch {
+  }
+}
 async function fetchLiveGoogleHealthData() {
-  const token = process.env.FITBIT_ACCESS_TOKEN?.trim();
+  const token = await getValidGoogleAccessToken();
   if (!token) return null;
   try {
     const sleepRes = await fetch("https://health.googleapis.com/v4/users/me/dataTypes/sleep/dataPoints", {
@@ -1776,6 +1858,189 @@ app.get(["/api/auth/check", "/auth/check"], (req, res) => {
   }
   return res.status(401).json({ ok: false, authenticated: false });
 });
+app.get(["/api/auth/google", "/auth/google"], (req, res) => {
+  const clientId = process.env.GOOGLE_HEALTH_CLIENT_ID || "";
+  const host = req.get("host") || "";
+  let redirectUri = "https://vasco-fit.vercel.app/api/auth/google/callback";
+  if (host.includes("localhost") || host.includes("127.0.0.1")) {
+    redirectUri = `http://${host}/api/auth/google/callback`;
+  }
+  const scopes = [
+    "openid",
+    "email",
+    "profile",
+    "https://www.googleapis.com/auth/fitness.sleep.read",
+    "https://www.googleapis.com/auth/fitness.heart_rate.read",
+    "https://www.googleapis.com/auth/fitness.activity.read",
+    "https://www.googleapis.com/auth/fitness.body.read"
+  ].join(" ");
+  const authUrl = "https://accounts.google.com/o/oauth2/v2/auth?" + new URLSearchParams({
+    client_id: clientId,
+    redirect_uri: redirectUri,
+    response_type: "code",
+    scope: scopes,
+    access_type: "offline",
+    prompt: "consent"
+  }).toString();
+  res.redirect(authUrl);
+});
+app.get(["/api/auth/google/callback", "/auth/google/callback"], async (req, res) => {
+  const { code, error } = req.query;
+  if (error) {
+    return res.status(400).send(`
+      <!DOCTYPE html>
+      <html>
+        <head><title>Google Health Connection Error</title></head>
+        <body style="background:#090b10;color:#f87171;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;">
+          <div style="background:#161922;padding:32px;border-radius:16px;border:1px solid #7f1d1d;max-width:480px;text-align:center;">
+            <h2 style="margin-top:0;">Connection Cancelled</h2>
+            <p style="color:#94a3b8;font-size:14px;">Google returned error: ${error}</p>
+            <a href="/" style="display:inline-block;margin-top:16px;padding:10px 20px;background:#38bdf8;color:#000;font-weight:bold;text-decoration:none;border-radius:8px;">Back to Dashboard</a>
+          </div>
+        </body>
+      </html>
+    `);
+  }
+  if (!code) {
+    return res.status(400).send("Authorization code missing from Google callback.");
+  }
+  const clientId = process.env.GOOGLE_HEALTH_CLIENT_ID || "";
+  const clientSecret = process.env.GOOGLE_HEALTH_CLIENT_SECRET || "";
+  const host = req.get("host") || "";
+  let redirectUri = "https://vasco-fit.vercel.app/api/auth/google/callback";
+  if (host.includes("localhost") || host.includes("127.0.0.1")) {
+    redirectUri = `http://${host}/api/auth/google/callback`;
+  }
+  try {
+    const tokenRes = await fetch("https://oauth2.googleapis.com/token", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
+        code,
+        client_id: clientId,
+        client_secret: clientSecret,
+        redirect_uri: redirectUri,
+        grant_type: "authorization_code"
+      })
+    });
+    if (!tokenRes.ok) {
+      const errText = await tokenRes.text();
+      return res.status(500).send(`Failed to exchange code with Google: ${errText}`);
+    }
+    const tokenData = await tokenRes.json();
+    const accessToken = tokenData.access_token;
+    const refreshToken = tokenData.refresh_token;
+    if (refreshToken) {
+      await saveGoogleRefreshToken(refreshToken);
+    }
+    if (accessToken) {
+      process.env.FITBIT_ACCESS_TOKEN = accessToken;
+    }
+    let syncSummary = "Biometrics successfully pulled from Google Health!";
+    try {
+      const syncResult = await syncGoogleHealthBiometrics();
+      syncSummary = `Sleep: ${syncResult.duration.metric_values.Duration}h | Deep: ${syncResult.deep.metric_values.Minutes}m | REM: ${syncResult.rem.metric_values.Minutes}m | RHR: ${syncResult.rhr.metric_values.BPM} bpm | HRV: ${syncResult.hrv.metric_values.rMSSD} ms`;
+    } catch (sErr) {
+      console.warn("Initial sync note:", sErr);
+    }
+    return res.send(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="utf-8"/>
+          <title>Google Health Connected | V.A.S.C.O.</title>
+          <meta name="viewport" content="width=device-width, initial-scale=1"/>
+          <style>
+            body {
+              background: radial-gradient(circle at 50% 20%, #171b26 0%, #080a0f 100%);
+              color: #f1f5f9;
+              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              min-height: 100vh;
+              margin: 0;
+              padding: 20px;
+              box-sizing: border-box;
+            }
+            .card {
+              background: rgba(18, 22, 34, 0.95);
+              border: 1px solid rgba(56, 189, 248, 0.3);
+              box-shadow: 0 20px 40px -15px rgba(0,0,0,0.7), 0 0 50px rgba(56, 189, 248, 0.15);
+              padding: 40px;
+              border-radius: 24px;
+              max-width: 520px;
+              width: 100%;
+              text-align: center;
+            }
+            .icon {
+              width: 64px;
+              height: 64px;
+              background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin: 0 auto 20px;
+              box-shadow: 0 0 30px rgba(16, 185, 129, 0.4);
+            }
+            .title {
+              font-size: 22px;
+              font-weight: 700;
+              letter-spacing: -0.5px;
+              margin: 0 0 8px;
+            }
+            .subtitle {
+              color: #94a3b8;
+              font-size: 14px;
+              margin: 0 0 24px;
+              line-height: 1.5;
+            }
+            .stats-pill {
+              background: rgba(30, 41, 59, 0.6);
+              border: 1px solid rgba(148, 163, 184, 0.15);
+              border-radius: 12px;
+              padding: 12px 16px;
+              font-family: ui-monospace, monospace;
+              font-size: 13px;
+              color: #38bdf8;
+              margin-bottom: 24px;
+            }
+            .btn {
+              display: inline-block;
+              width: 100%;
+              padding: 14px;
+              background: linear-gradient(90deg, #06b6d4, #3b82f6);
+              color: #fff;
+              font-weight: 600;
+              font-size: 15px;
+              text-decoration: none;
+              border-radius: 12px;
+              transition: opacity 0.2s;
+              box-sizing: border-box;
+            }
+            .btn:hover { opacity: 0.9; }
+          </style>
+        </head>
+        <body>
+          <div class="card">
+            <div class="icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <h1 class="title">Google Health Linked Permanently!</h1>
+            <p class="subtitle">Your V.A.S.C.O. dashboard is now connected directly to Google Cloud. Hands-free sleep and heart rate telemetry will sync automatically without manual token entry.</p>
+            <div class="stats-pill">${syncSummary}</div>
+            <a href="/?google_connected=1" class="btn">Return to V.A.S.C.O. Dashboard &rarr;</a>
+          </div>
+        </body>
+      </html>
+    `);
+  } catch (err) {
+    return res.status(500).send(`OAuth callback error: ${err}`);
+  }
+});
 function requireAuth(req, res, next) {
   const authHeader = req.headers.authorization;
   const token = authHeader ? authHeader.replace(/^Bearer\s+/i, "").trim() : null;
@@ -1795,7 +2060,12 @@ app.get(["/api/state", "/state"], requireAuth, async (_req, res) => {
         supabaseUrl: process.env.SUPABASE_URL || "",
         supabaseAnonKey: process.env.SUPABASE_ANON_KEY || "",
         geminiConfigured: Boolean(process.env.GEMINI_API_KEY?.trim()),
-        fitbitConnected: Boolean(process.env.FITBIT_ACCESS_TOKEN?.trim()),
+        fitbitConnected: Boolean(
+          process.env.FITBIT_ACCESS_TOKEN?.trim() || process.env.GOOGLE_HEALTH_REFRESH_TOKEN?.trim()
+        ),
+        googlePermanentSync: Boolean(
+          process.env.GOOGLE_HEALTH_REFRESH_TOKEN?.trim()
+        ),
         fitbitAccessToken: process.env.FITBIT_ACCESS_TOKEN || "",
         mcpServerActive: true
       }
@@ -1928,7 +2198,12 @@ app.post(["/api/config", "/config"], requireAuth, async (req, res) => {
         supabaseUrl: process.env.SUPABASE_URL || "",
         supabaseAnonKey: process.env.SUPABASE_ANON_KEY || "",
         geminiConfigured: Boolean(process.env.GEMINI_API_KEY?.trim()),
-        fitbitConnected: Boolean(process.env.FITBIT_ACCESS_TOKEN?.trim()),
+        fitbitConnected: Boolean(
+          process.env.FITBIT_ACCESS_TOKEN?.trim() || process.env.GOOGLE_HEALTH_REFRESH_TOKEN?.trim()
+        ),
+        googlePermanentSync: Boolean(
+          process.env.GOOGLE_HEALTH_REFRESH_TOKEN?.trim()
+        ),
         fitbitAccessToken: process.env.FITBIT_ACCESS_TOKEN || "",
         mcpServerActive: true
       }

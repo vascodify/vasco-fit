@@ -24,6 +24,7 @@ interface SystemStatus {
   supabaseAnonKey: string;
   geminiConfigured: boolean;
   fitbitConnected?: boolean;
+  googlePermanentSync?: boolean;
   fitbitAccessToken?: string;
   mcpServerActive: boolean;
 }
@@ -71,6 +72,13 @@ export function App() {
 
     if (sessionToken) {
       fetchState();
+    }
+
+    if (window.location.search.includes('google_connected=1')) {
+      setLiveToast('Google Health permanently connected & biometrics synced!');
+      window.history.replaceState({}, document.title, window.location.pathname);
+      fetchState();
+      setTimeout(() => setLiveToast(null), 6000);
     }
 
     return () => window.removeEventListener('vasco_unauthorized', handleUnauthorized);

@@ -75,6 +75,23 @@ export const HealthSyncModal: React.FC<HealthSyncModalProps> = ({
           </button>
         </div>
 
+        <div className="p-3.5 rounded-2xl bg-gradient-to-r from-cyan-950/40 to-blue-950/40 border border-cyan-500/30 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="text-left w-full">
+            <div className="text-xs font-semibold text-cyan-200 flex items-center gap-1.5">
+              <Zap className="w-3.5 h-3.5 text-cyan-400" />
+              Automated Background Sync
+            </div>
+            <div className="text-[11px] text-slate-400">Link once to pull Sleep, REM, RHR & HRV automatically.</div>
+          </div>
+          <a
+            href="/api/auth/google"
+            className="w-full sm:w-auto px-3.5 py-1.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-md shadow-cyan-500/20 shrink-0 cursor-pointer"
+          >
+            <Zap className="w-3.5 h-3.5" />
+            Connect Google
+          </a>
+        </div>
+
         <form onSubmit={handleSubmit} className="space-y-3.5">
           {/* Total Sleep Duration */}
           <div className="p-3 rounded-2xl bg-slate-900/80 border border-slate-800 flex items-center justify-between gap-4">
